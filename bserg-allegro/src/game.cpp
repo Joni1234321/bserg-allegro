@@ -13,7 +13,7 @@
 #include "overlay/building-overlay.h"
 
 #include "transforms.h"
-
+#include "timer.h"
 
 #include <iostream>
 
@@ -24,6 +24,8 @@ Game::Game(const ALLEGRO_FONT* font, const Camera& camera) :
 	world(World()),
 	scenes{ new Scene[]{Scene("Base"), Scene("Objectives")} }, sceneI(0), sceneN(2)
 {
+	TIMER("Game");
+
 	load();
 	
 	// Create UI
@@ -36,6 +38,7 @@ Game::Game(const ALLEGRO_FONT* font, const Camera& camera) :
 	team_colors = new ALLEGRO_COLOR[n_teams];
 
 	for (int i = 0; i < n_teams; i++) {
+
 		units[i] = std::vector<Unit>();
 		units[i].reserve(300);
 

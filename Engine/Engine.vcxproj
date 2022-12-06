@@ -152,8 +152,10 @@
     <ClCompile Include="src\math\mathb-types.cpp" />
     <ClCompile Include="src\math\mathb.h" />
     <ClCompile Include="src\timer.cpp" />
+    <ClCompile Include="src\ui\ui-menu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\collision.h" />
     <ClInclude Include="src\ecs.h" />
     <ClInclude Include="src\example-bitmaps.h" />
     <ClInclude Include="src\extra\bitmap-creator.h" />
@@ -175,7 +177,9 @@
     <ClInclude Include="src\threads\BS_thread_pool_light.hpp" />
     <ClInclude Include="src\timer.h" />
     <ClInclude Include="src\transforms.h" />
-    <ClInclude Include="src\ui\ui.h" />
+    <ClInclude Include="src\ui.h" />
+    <ClInclude Include="src\ui\ui-menu.h" />
+    <ClInclude Include="src\ui\ui-types.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

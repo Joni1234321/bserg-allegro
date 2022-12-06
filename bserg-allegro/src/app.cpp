@@ -24,13 +24,8 @@ App::App(const ALLEGRO_FONT* font) :
 	al_identity_transform(&TRANSFORM_UI);
 	al_use_transform(&TRANSFORM_UI);
 
-	// Load bitmaps
-	SQUARE_BITMAP_32 = bitmapCreatePixelRect(CL_FULL_WHITE, int2(32, 32));
-	//SQUARE_BITMAP_64 = bitmapCreatePixelRect(CL_FULL_WHITE, int2(64, 64));
-	
-
 	// Set update info
-	UPDATE_INFO.camera = &camera;
+	CAMERA = &camera;
 	
 	
 	// Other stuff
@@ -155,7 +150,7 @@ void App::onMouseDown() {
 	if (MOUSE_DOWN(MOUSE_RIGHT)) {
 		ecs::Components<ecs::MoveGoalComponent> moveGoals = ecs::getBatch<ecs::UnitBatch>().moveGoals;
 		for (size_t i = 0; i < selectedUnits.size(); i++)
-			moveGoals[selectedUnits[i]].goal = camera.screenToWorld(int2(UPDATE_INFO.mouse.x, UPDATE_INFO.mouse.y));
+			moveGoals[selectedUnits[i]].goal = camera.screenToWorld(int2(MOUSE_X, MOUSE_Y));
 	}
 }
 

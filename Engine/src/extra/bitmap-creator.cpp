@@ -5,6 +5,7 @@
 
 ALLEGRO_BITMAP* bitmapCreatePixelRect(ALLEGRO_COLOR color, mathb::types::int2 size) {
 	ALLEGRO_BITMAP* bitmap = al_create_bitmap(size.x, size.y);
+	al_lock_bitmap(bitmap, ALLEGRO_LOCK_WRITEONLY, 0);
 	al_set_target_bitmap(bitmap);
 	for (int y = 0; y < size.y; y++)
 		for (int x = 0; x < size.x; x++)

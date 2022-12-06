@@ -17,6 +17,12 @@
 #define MOUSE_X (UPDATE_INFO.mouse.x)
 #define MOUSE_Y (UPDATE_INFO.mouse.y)
 
+#define SCREEN_W (UPDATE_INFO.screenW)
+#define SCREEN_H (UPDATE_INFO.screenH)
+
+#define MOUSE (UPDATE_INFO.mouse)
+#define CAMERA (UPDATE_INFO.camera)
+
 struct MouseData {
 	unsigned int button;
 	int x, y;
@@ -24,6 +30,7 @@ struct MouseData {
 
 struct UpdateInfo {
 	Camera* camera;
+	int screenW, screenH;
 	MouseData mouse;
 	uint8_t key[ALLEGRO_KEY_MAX];
 };

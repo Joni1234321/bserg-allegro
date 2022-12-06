@@ -65,8 +65,11 @@ void init() {
     al_register_event_source(queue, al_get_mouse_event_source());
 
     al_start_timer(timer);
+    
     // For input
     memset(UPDATE_INFO.key, 0, sizeof(UPDATE_INFO.key));
+    SCREEN_W = SCALED_WIDTH;
+    SCREEN_H = SCALED_HEIGHT;
 
 }
 
@@ -110,13 +113,13 @@ void run() {
 
                 // Mouse handling
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN: {
-                UPDATE_INFO.mouse = { event.mouse.button, event.mouse.x, event.mouse.y };
+                MOUSE = { event.mouse.button, event.mouse.x, event.mouse.y };
                 app.onMouseDown();
                 break;
             }
 
             case ALLEGRO_EVENT_MOUSE_BUTTON_UP: {
-                UPDATE_INFO.mouse = { event.mouse.button, event.mouse.x, event.mouse.y };
+                MOUSE = { event.mouse.button, event.mouse.x, event.mouse.y };
                 app.onMouseUp();
                 break;
             }
@@ -129,6 +132,8 @@ void run() {
 
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
                 al_acknowledge_resize(display);
+                SCREEN_W = event.display.width;
+                SCREEN_H = event.display.height;
                 resizeTestGui();
                 break;
             }
@@ -146,7 +151,7 @@ void run() {
 
             ALLEGRO_MOUSE_STATE mouse;
             al_get_mouse_state(&mouse);
-            UPDATE_INFO.mouse = { (unsigned int)mouse.buttons, mouse.x, mouse.y };
+            MOUSE = { (unsigned int)mouse.buttons, mouse.x, mouse.y };
 
             app.update(t);
         }

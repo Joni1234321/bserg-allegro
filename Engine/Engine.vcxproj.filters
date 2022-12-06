@@ -54,6 +54,9 @@
     <ClCompile Include="src\extra\bitmap-creator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\ui-menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\mathb-types.h">
@@ -116,10 +119,19 @@
     <ClInclude Include="src\transforms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ui\ui.h">
+    <ClInclude Include="src\ui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\example-bitmaps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\ui-menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\ui-types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
