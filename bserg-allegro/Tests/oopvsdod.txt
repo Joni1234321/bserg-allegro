@@ -1,0 +1,38 @@
+ALL IN REALEASE MODE, SHOULD HAVE O2
+OOP has no logic except drawing and movement
+DOD has some logic that it skips over
+
+8 TICKS PER SECOND 
+
+Drawing 
+OOP: 120 ms 100000 units on each team
+DOD: 120 ms 200000 units on 1 team
+
+No Drawing
+OOP: 45 ms  6 m units no drawing
+DOD: 45 ms 10 m units no drawing
+
+// This is a bad testing method since the framerate isnt calculated in a way that is good with a few fast frames
+32 Ticks per second
+Only Ticks 
+OOP: approx 14 ms 15 m units no drawing or lerp
+DOD: less than 13 ms 15 m units no drawing or lerp
+
+
+No drawing 20 m units:
+OOP: draw 85 ms, tick 105 ms
+DOD: draw 50 ms, tick 110 ms
+
+Drawing 100 k units 
+OOP: draw 65 ms, tick .7 ms
+DOD: draw 65 ms, tick .8 ms
+
+After adding fields to unit to make it more fair
+Darwing 20 k units
+OOP: draw 12 ms tick .12 ms 
+DOD: draw 12 ms tick .12 ms
+
+
+Tick and drawing logic only 20M
+DOD NO SIMD: 100 ms TIck, 50 ms drawing
+DOD SIMD: 40 ms drawing
