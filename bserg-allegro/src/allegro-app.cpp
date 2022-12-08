@@ -151,7 +151,7 @@ void run() {
 
         if (!app.paused) {
             al_set_target_backbuffer(display);
-            al_clear_to_color(CL_BLUE);
+            al_clear_to_color(CL_GRASS_5);
 
             ALLEGRO_MOUSE_STATE mouse;
             al_get_mouse_state(&mouse);

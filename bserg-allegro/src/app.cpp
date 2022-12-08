@@ -69,11 +69,12 @@ void App::input()
 	if (KEY_DOWN(1)) spawnUnit(0);
 	if (KEY_DOWN(2)) spawnUnit(1);
 	if (KEY_PRESSED(3)) {
+		static int lastSelectedBuildingType = 0;
 		setOverlay<BuildingOverlay>();
-		buildingOverlaySelect(BuildingType::Storage);
+		buildingOverlaySelect((BuildingType) (lastSelectedBuildingType++ % (int)BuildingType::COUNT));
 	}
 	if (KEY_DOWN(4)) spawnUnit(1, 50);
-	if (KEY_DOWN(5)) spawnUnit(0, 1000);
+	if (KEY_DOWN(5)) setOverlay<Overlay>();
 	if (KEY_DOWN(6)) spawnUnit(1, 1000);
 	if (KEY_DOWN(7)) {
 		spawnUnit(0, 10000);

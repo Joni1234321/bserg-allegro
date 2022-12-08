@@ -11,6 +11,7 @@ enum BuildingType {
 	Barracks,
 	Maintainance,
 	Command,
+	WorkerHousing,
 
 	// COUNT HAS TO BE LAST ELEMENT
 	COUNT,	

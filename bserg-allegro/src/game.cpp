@@ -15,6 +15,8 @@
 #include "overlay/overlay.h"
 #include "overlay/building-overlay.h"
 
+#include "inputs.h"
+#include "collision.h"
 #include "transforms.h"
 #include "timer.h"
 
@@ -30,7 +32,7 @@ Game::Game(const ALLEGRO_FONT* font, const Camera& camera) :
 	TIMER("Game");
 
 	load();
-	
+
 	// Create UI
 	addOverlay(new Overlay());
 	addOverlay<BuildingOverlay>(new BuildingOverlay());
@@ -73,10 +75,10 @@ void Game::draw(float t)
 	// Draw units
 	static int2 unitHalfSize(15, 10);
 	float2 unitHalfSizeScreen = float2(unitHalfSize.x * camera.getScale(), unitHalfSize.y * camera.getScale());
-	
+
 	for (uint8_t team = 0; team < n_teams; team++) {
 		for (uint32_t i = 0; i < units[team].size(); i++) {
-			Unit &unit = units[team][i];
+			Unit& unit = units[team][i];
 			unit.drawPosition = lerp(unit.curr, unit.next, t);
 			int2 d1 = camera.worldToScreen(unit.drawPosition - unitHalfSizeScreen);
 			int2 d2 = camera.worldToScreen(unit.drawPosition + unitHalfSizeScreen);
@@ -87,13 +89,56 @@ void Game::draw(float t)
 
 
 	// draw buildings
+	al_use_transform(&TRANSFORM_WORLD);
+
+	// Mouse
+	float2 mouseCoords = float2(MOUSE_X, MOUSE_Y);
+	al_transform_coordinates(&TRANSFORM_WORLD_INVERTED, &mouseCoords.x, &mouseCoords.y);
+	const int2 mouseTile = UNIT_TO_TILE(int2(mouseCoords.x, mouseCoords.y));
+
+
+	// Buildings
 	const int nBuildings = bserg::world.buildings.size();
+	
+	// Building Collision
+	bool buildingCollision = false;
+	int2 collisionCorner1, collisionCorner2;
+
 	for (int i = 0; i < nBuildings; i++) {
 		const Building& building = bserg::world.buildings[i];
 		int2 unitPos = TILE_TO_UNIT(building.topLeftTile);
+
+		// Draw building
 		al_draw_bitmap(getSpec(building.type)->bitmap, unitPos.x, unitPos.y, 0);
+
+		// Already detected
+		if (buildingCollision)
+			continue;
+
+		// Get collision with building
+		int2 size = getSpec(building.type)->size;
+		int2 corner = building.topLeftTile + size;
+		if (collision::insideRect(mouseTile.x, mouseTile.y, building.topLeftTile.x, building.topLeftTile.y, corner.x - 1, corner.y - 1)) {
+			buildingCollision = true;
+			collisionCorner1 = unitPos;
+			collisionCorner2 = TILE_TO_UNIT(corner);
+		}
+	
 	}
-		
+
+	// Draw outer rect around hovering building
+	if (buildingCollision)
+		al_draw_rectangle(collisionCorner1.x, collisionCorner1.y, collisionCorner2.x, collisionCorner2.y, CL_ORANGE, 6);
+
+	// Draw selected tile
+	{
+		const int2 snappedMouse = TILE_TO_UNIT(mouseTile);
+		al_draw_rectangle(snappedMouse.x, snappedMouse.y, snappedMouse.x + 64, snappedMouse.y + 64, CL_GREY, 4);
+	}
+
+
+
+
 	getCurrentOverlay()->draw();
 
 }
