@@ -1,6 +1,8 @@
+#include "mathb.h"
 #include "mathb-types.h"
 
 #include <iostream>
+
 namespace mathb {
 	namespace types {
 

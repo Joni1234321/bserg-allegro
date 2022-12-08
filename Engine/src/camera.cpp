@@ -1,6 +1,6 @@
 #include "camera.h"
 
-#include <algorithm>    
+#include <algorithm>
 
 void Camera::zoom(float d) {
 	scale = std::clamp(scale + d, minScale, maxScale);

@@ -11,3 +11,7 @@
 
 #define CL_FULL_BLACK al_map_rgb(0,0,0)
 #define CL_FULL_WHITE al_map_rgb(255, 255, 255)
+
+#define CL_WINE al_map_rgb(106, 46, 53)
+#define CL_RAISIN_BLACK al_map_rgb(46, 40, 54)
+

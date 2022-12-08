@@ -1,6 +1,7 @@
-#include <stdio.h>
-#include <iostream>
-#include <cstdlib>
+#include <allegro5/allegro5.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_font.h>
 
 #include "app.h"
 #include "testing/gui.h"
@@ -113,13 +114,16 @@ void run() {
 
                 // Mouse handling
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN: {
-                MOUSE = { event.mouse.button, event.mouse.x, event.mouse.y };
+                MOUSE.pressed |= event.mouse.button;
+                MOUSE.x = event.mouse.x;
+                MOUSE.y = event.mouse.y;
                 app.onMouseDown();
                 break;
             }
 
             case ALLEGRO_EVENT_MOUSE_BUTTON_UP: {
-                MOUSE = { event.mouse.button, event.mouse.x, event.mouse.y };
+                MOUSE.x = event.mouse.x;
+                MOUSE.y = event.mouse.y;
                 app.onMouseUp();
                 break;
             }
@@ -151,7 +155,9 @@ void run() {
 
             ALLEGRO_MOUSE_STATE mouse;
             al_get_mouse_state(&mouse);
-            MOUSE = { (unsigned int)mouse.buttons, mouse.x, mouse.y };
+            MOUSE.down = mouse.buttons;
+            MOUSE_X = mouse.x;
+            MOUSE_Y = mouse.y;
 
             app.update(t);
         }
@@ -162,6 +168,7 @@ void run() {
 
         // Reset keys
         for (int i = 0; i < ALLEGRO_KEY_MAX; i++) UPDATE_INFO.key[i] &= KEY_SEEN;
+        MOUSE.pressed = 0;
     }
 }
 int main() {

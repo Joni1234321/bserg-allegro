@@ -1,4 +1,6 @@
 #pragma once
+#include <allegro5/allegro_font.h>
+
 #include "engine.h"
 #include "inputs.h"
 

@@ -1,7 +1,4 @@
 #pragma once
-
-
-
 class Scene {
 public:
 	Scene(const char* name) : name(name) { }

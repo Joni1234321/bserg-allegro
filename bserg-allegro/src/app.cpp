@@ -11,7 +11,6 @@
 #include "timer.h"
 
 #include "transforms.h"
-#include "example-bitmaps.h"
 
 /// https://coolors.co/ff6700-107ab0-ebebeb-c0c0c0-22181c
 

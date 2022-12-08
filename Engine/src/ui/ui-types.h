@@ -1,5 +1,6 @@
 #pragma once
-#include "allegro5/bitmap.h"
+
+#include <allegro5/bitmap.h>
 
 namespace ui {
 	struct Image {

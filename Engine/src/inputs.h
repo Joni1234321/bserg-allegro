@@ -1,6 +1,5 @@
 #pragma once
-
-#include "allegro5/keycodes.h"
+#include <allegro5/keycodes.h>
 
 #include "camera.h"
 
@@ -10,7 +9,8 @@
 #define KEYCODE_DOWN 1	
 #define KEYCODE_PRESSED 2	// Key is only pressed in one frame
 
-#define MOUSE_DOWN(btn) (UPDATE_INFO.mouse.button == btn)
+#define MOUSE_DOWN(btn) (UPDATE_INFO.mouse.down == btn)
+#define MOUSE_PRESSED(btn) (UPDATE_INFO.mouse.pressed == btn)
 #define KEY_DOWN(name) (UPDATE_INFO.key[ALLEGRO_KEY_##name] & KEYCODE_DOWN)
 #define KEY_PRESSED(name) (UPDATE_INFO.key[ALLEGRO_KEY_##name] & KEYCODE_PRESSED)
 
@@ -24,15 +24,16 @@
 #define CAMERA (UPDATE_INFO.camera)
 
 struct MouseData {
-	unsigned int button;
-	int x, y;
+	uint8_t down;
+	uint8_t pressed;
+	uint32_t x, y;
 };
 
 struct UpdateInfo {
 	Camera* camera;
-	int screenW, screenH;
-	MouseData mouse;
 	uint8_t key[ALLEGRO_KEY_MAX];
+	uint32_t screenW, screenH;
+	MouseData mouse;
 };
 
 

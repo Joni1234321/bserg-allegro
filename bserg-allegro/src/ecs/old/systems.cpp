@@ -1,6 +1,10 @@
 #include "systems.h"
 
+#include <allegro5/allegro5.h>
+#include <allegro5/bitmap.h>
 #include <cmath>
+
+#include "colors.h"
 #include "threads/BS_thread_pool.hpp"
 #include "transforms.h"
 

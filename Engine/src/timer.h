@@ -1,5 +1,4 @@
 #pragma once
-
 #include <chrono>
 
 #define TIMER(T) Timer ______timer(T);

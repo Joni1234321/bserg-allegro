@@ -1,8 +1,12 @@
 #pragma once
+#include <allegro5/allegro_font.h>
+
 #include "ecs/old/unit.h"
 #include "models/world.h"
 #include "overlay/overlay.h"
+
 #include <vector>
+
 #include "camera.h"
 
 class Game {

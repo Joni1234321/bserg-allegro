@@ -1,5 +1,4 @@
 #pragma once
-
 #include "math/mathb.h"
 
 class Camera {

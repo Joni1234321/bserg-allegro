@@ -51,10 +51,13 @@
     <ClCompile Include="src\extra\inputs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\extra\bitmap-creator.cpp">
+    <ClCompile Include="src\extra\bitmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ui\ui-menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extra\other.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,7 +71,7 @@
     <ClInclude Include="src\engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\extra\colors.h">
+    <ClInclude Include="src\colors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\inputs.h">
@@ -113,16 +116,13 @@
     <ClInclude Include="src\imgui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\extra\bitmap-creator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\transforms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\example-bitmaps.h">
+    <ClInclude Include="src\bitmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\collision.h">
@@ -132,6 +132,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\ui-types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

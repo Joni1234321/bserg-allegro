@@ -3,7 +3,10 @@
 #include "engine.h"
 
 #include <cassert>
-#include "allegro5/allegro_primitives.h"
+#include <allegro5/allegro_primitives.h>
+
+#include "bserg.h"
+#include "globals.h"
 
 #include "ecs.h"
 #include "models\world.h"
@@ -83,7 +86,14 @@ void Game::draw(float t)
 #endif
 
 
-	al_use_transform(&TRANSFORM_UI);
+	// draw buildings
+	const int nBuildings = bserg::world.buildings.size();
+	for (int i = 0; i < nBuildings; i++) {
+		const Building& building = bserg::world.buildings[i];
+		int2 unitPos = TILE_TO_UNIT(building.topLeftTile);
+		al_draw_bitmap(getSpec(building.type)->bitmap, unitPos.x, unitPos.y, 0);
+	}
+		
 	getCurrentOverlay()->draw();
 
 }

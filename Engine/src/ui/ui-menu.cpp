@@ -1,17 +1,18 @@
 #include "ui/ui-menu.h"
 
-#include "allegro5/allegro.h"
-#include "example-bitmaps.h"
+
+
+#include "bitmap.h"
 #include "inputs.h"
 #include "collision.h"
 #include "transforms.h"
 
 namespace ui {
 	// Create a horizontal menu attached to the top
-	bool drawBottomMenu(const std::vector<Image> items, int offset, const ALLEGRO_COLOR background, int paddingX, int paddingY){
+	bool drawBottomMenu(const std::vector<Image> items, int offset, const ALLEGRO_COLOR background, int& out, int paddingX, int paddingY){
 		al_use_transform(&TRANSFORM_UI);
 
-		const size_t n = items.size();
+		const int n = static_cast<int>(items.size());
 		
 		if (n == 0)
 			return false; 
@@ -39,6 +40,7 @@ namespace ui {
 			if (!hitUI && collision::insideRect(MOUSE_X, MOUSE_Y, x, y, image.getX2(x), image.getY2(y))) {
 				al_draw_tinted_bitmap(image.bitmap, al_map_rgba_f(.5f, .5f, .5f, 0.5f), x, y, 0);
 				hitUI = true;
+				out = i;
 				continue;
 			}
 

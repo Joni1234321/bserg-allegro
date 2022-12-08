@@ -1,6 +1,10 @@
 #include "selection-box.h"
 
+#include <allegro5/mouse.h>
+#include <allegro5/allegro_primitives.h>
 #include <cmath>
+#include "colors.h"
+
 
 
 void SelectionBox::start(const MouseData& mouse) {

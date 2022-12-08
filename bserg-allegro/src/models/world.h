@@ -11,6 +11,7 @@
 
 class Tile {
 public:
+	Tile() : blocked(false) { }
 	bool blocked;
 private:
 
@@ -18,19 +19,19 @@ private:
 
 class Area {
 public:
-private:
 	Tile tiles[AREA_TOTAL];
+private:
 };
 
 
 class World {
 public:
-	World() : buildings(std::vector<Building>(100)), area(Area()) { }
-	Tile getTile(int2 position);
-	
+	World() : buildings(std::vector<Building>()), area(Area()) { }
+	Tile& getTile (int2 position);
+	std::vector<Building> buildings;
 
 private:
 	Area area;
-	std::vector<Building> buildings;
 };
+
 

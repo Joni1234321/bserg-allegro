@@ -10,5 +10,6 @@ private:
 };
 
 
-void buildingOverlaySelect(BuildingType);
+bool tryPlaceBuilding(World& world, int2 topLeftTile, BuildingType type);
+void buildingOverlaySelect( BuildingType);
 

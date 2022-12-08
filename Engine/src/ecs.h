@@ -1,6 +1,5 @@
 #pragma once
 #include <assert.h>
-#include <stdint.h>
 #include <vector>
 
 // Inspiration https://www.david-colson.com/2020/02/09/making-a-simple-ecs.html#:~:text=Using%20the%20ECS%20framework%20we'll%20make&text=Components%20are%20just%20plain%20old,us%20access%20and%20manage%20it.

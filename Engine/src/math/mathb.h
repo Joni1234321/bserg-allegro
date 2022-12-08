@@ -1,9 +1,7 @@
 #pragma once
-#include <cmath>
-
 #include "mathb-types.h"
-
-#include "immintrin.h"
+#include <cmath>
+#include <immintrin.h>
 
 template <typename T>
 inline T lerp(T a, T b, float t) {
