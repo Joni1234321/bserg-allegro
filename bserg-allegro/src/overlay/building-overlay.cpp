@@ -79,7 +79,7 @@ void BuildingOverlay::draw() {
 	const BuildingSpecification* buildTargetSpecs = getSpec(buildTarget);
 	
 	float2 mouseCoords = float2(MOUSE_X, MOUSE_Y);
-	al_transform_coordinates(&TRANSFORM_WORLD, &mouseCoords.x, &mouseCoords.y);
+	al_transform_coordinates(&TRANSFORM_WORLD_INVERTED, &mouseCoords.x, &mouseCoords.y);
 	
 	const int2 mouseTile = UNIT_TO_TILE(int2(mouseCoords.x, mouseCoords.y));
 	const int2 topLeftTile = mouseTile - centerTileOffset;

@@ -110,7 +110,10 @@ void App::draw(float t)
 	al_identity_transform(&TRANSFORM_WORLD);
 	al_translate_transform(&TRANSFORM_WORLD, -camera.position.x, camera.position.y);
 	al_scale_transform(&TRANSFORM_WORLD, camera.getScale(), camera.getScale());
-
+	
+	// invert
+	al_copy_transform(&TRANSFORM_WORLD_INVERTED, &TRANSFORM_WORLD);
+	al_invert_transform(&TRANSFORM_WORLD_INVERTED);
 	//al_draw_text(font, CL_WHITE, camera.position.x + 50, camera.position.y + 20, ALLEGRO_ALIGN_CENTER, game.currentScene().getName());
 
 
