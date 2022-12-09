@@ -6,12 +6,11 @@
 
 
 namespace bitmap {
-	ALLEGRO_BITMAP* createPixelRect(ALLEGRO_COLOR color, mathb::types::int2 size);
-	ALLEGRO_BITMAP* createTileRect(ALLEGRO_COLOR color, mathb::types::int2 size);
+	ALLEGRO_BITMAP* createRect(ALLEGRO_COLOR color, mathb::types::Unit2 size);
 
 	template<uint32_t N>
 	ALLEGRO_BITMAP* square() {
-		static ALLEGRO_BITMAP* sq = bitmap::createPixelRect(al_map_rgb(255, 255, 255), mathb::types::int2(N, N));
+		static ALLEGRO_BITMAP* sq = bitmap::createRect(al_map_rgb(255, 255, 255), mathb::types::Unit2(N, N));
 		return sq;
 	}
 }

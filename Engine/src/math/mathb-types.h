@@ -1,9 +1,17 @@
 #pragma once
+#include <cstdint>
+
+#define UNITS_PER_TILE 64
+#define LOG_UNITS_PER_TILE 6
+
+// Ignore the first 6 bits, since 2^6 = 64
+#define UNITS_PER_TILE_MASK 0xFFC0
+
+
 namespace mathb {
 	namespace types {
 		
-		class float2 {
-		public:
+		struct float2 {
 			float x, y;
 			float2(float x, float y) : x(x), y(y) {}
 			float2(float v) : x(v), y(v) {}
@@ -19,19 +27,49 @@ namespace mathb {
 			void print();
 		};
 
-		class int2 {
-		public:
-			int x, y;
-			int2(int x, int y) : x(x), y(y) {}
-			int2(int v) : x(v), y(v) {}
+		struct int2 {
+			int32_t x, y;
+			int2(int32_t x, int32_t y) : x(x), y(y) {}
+			int2(int32_t v) : x(v), y(v) {}
 			int2() : x(0), y(0) {};
 
 			int2 operator + (const int2& obj) const { return int2( x + obj.x, y + obj.y ); }
 			int2 operator - (const int2& obj) const { return int2( x - obj.x, y - obj.y ); }
-			int2 operator * (const int obj) const { return int2( x * obj, y * obj ); }
+			int2 operator * (const int32_t obj) const { return int2( x * obj, y * obj ); }
 
 			void print();
 		};
+
+
+		struct Unit2;
+		struct Tile2;
+
+		struct Unit2 {
+			uint32_t x, y;
+			Unit2(uint32_t x, uint32_t y) : x(x), y(y) {}
+			Unit2(uint32_t v) : x(v), y(v) {}
+			Unit2() : x(0), y(0) {};
+
+			Unit2 operator + (const Unit2& obj) const { return Unit2(x + obj.x, y + obj.y); }
+			Unit2 operator - (const Unit2& obj) const { return Unit2(x - obj.x, y - obj.y); }
+			Unit2 operator * (const uint32_t obj) const { return Unit2(x * obj, y * obj); }
+			
+			explicit Unit2(const Tile2& tile);
+		};
+		
+		struct Tile2 {
+			uint32_t x, y;
+			Tile2(uint32_t x, uint32_t y) : x(x), y(y) {}
+			Tile2(uint32_t v) : x(v), y(v) {}
+			Tile2() : x(0), y(0) {};
+
+
+			Tile2 operator + (const Tile2& obj) const { return Tile2(x + obj.x, y + obj.y); }
+			Tile2 operator - (const Tile2& obj) const { return Tile2(x - obj.x, y - obj.y); }
+			Tile2 operator * (const uint32_t obj) const { return Tile2(x * obj, y * obj); }
+
+			explicit Tile2(const Unit2& unit);
+		};	
 
 	}
 }

@@ -15,10 +15,10 @@
 
 #include "timer.h"
 
-bool anyBlockingTiles(World& world, int2 topLeftTile, int2 size) {
-	for (int y = 0; y < size.y; y++) {
-		for (int x = 0; x < size.x; x++) {
-			Tile& tile = world.getTile(int2(x + topLeftTile.x, y + topLeftTile.y));
+bool anyBlockingTiles(World& world, Tile2 topLeftTile, Tile2 size) {
+	for (uint32_t y = 0; y < size.y; y++) {
+		for (uint32_t x = 0; x < size.x; x++) {
+			Tile& tile = world.getTile(Tile2(x + topLeftTile.x, y + topLeftTile.y));
 			if (tile.blocked)
 				return true;
 		}
@@ -26,10 +26,10 @@ bool anyBlockingTiles(World& world, int2 topLeftTile, int2 size) {
 	return false;
 }
 
-void blockTiles(World& world, int2 topLeftTile, int2 size) {
-	for (int y = 0; y < size.y; y++) {
-		for (int x = 0; x < size.x; x++) {
-			world.getTile(int2(x + topLeftTile.x, y + topLeftTile.y)).blocked = true;
+void blockTiles(World& world, Tile2 topLeftTile, Tile2 size) {
+	for (uint32_t y = 0; y < size.y; y++) {
+		for (uint32_t x = 0; x < size.x; x++) {
+			world.getTile(Tile2(x + topLeftTile.x, y + topLeftTile.y)).blocked = true;
 		}
 	}
 }
@@ -37,21 +37,24 @@ void blockTiles(World& world, int2 topLeftTile, int2 size) {
 // building that is going to be build
 static BuildingType buildTarget;
 // Offset from topleft to center
-static int2 centerTileOffset; 
+static Tile2 centerOffset; 
 
 void buildingOverlaySelect(BuildingType buildingType) {
 	buildTarget = buildingType;
-	int2 size = getSpec(buildingType)->size;
-	centerTileOffset = int2((size.x - 1) / 2, (size.y) / 2);
+	Tile2 size = getSpec(buildingType)->size;
+	centerOffset = Tile2((size.x - 1) / 2, (size.y) / 2);
 }
 
-bool tryPlaceBuilding(World& world, int2 topLeftTile, BuildingType buildingType) {
+bool tryPlaceBuilding(World& world, Tile2 topLeftTile, uint8_t rotation, BuildingType buildingType) {
 	const BuildingSpecification* spec = getSpec(buildingType);
+	Tile2 rotatedSize = ROTATED_SIZE(rotation, spec->size);
+	float angle = ROTATION_TO_ANGLE(rotation);
+
 	// Try
-	if (anyBlockingTiles(world, topLeftTile, spec->size))
+	if (anyBlockingTiles(world, topLeftTile, rotatedSize))
 		return false;
 
-	blockTiles(world, topLeftTile, spec->size);
+	blockTiles(world, topLeftTile, rotatedSize);
 
 	// Place building into world
 	world.buildings.emplace_back(buildingType, topLeftTile);
@@ -60,16 +63,18 @@ bool tryPlaceBuilding(World& world, int2 topLeftTile, BuildingType buildingType)
 }
 
 
-void drawBuildingGhost (const BuildingSpecification* building, int2 topLeftTile) {
+void drawBuildingGhost (const BuildingSpecification* building, Tile2 topLeftTile, uint8_t rotation) {
 	al_use_transform(&TRANSFORM_WORLD);
+
 	// Make ghost red when blocked
 	ALLEGRO_COLOR color = al_map_rgba_f(1.f, 1.f, 1.f, .6f);
 	if (anyBlockingTiles(bserg::world, topLeftTile, building->size))
 		color = al_map_rgba_f(1.f, .1f, .1f, .6f);
 	
 	// Draw ghost
-	const int2 pos = TILE_TO_UNIT(topLeftTile);
-	al_draw_tinted_bitmap(building->bitmap, color, pos.x, pos.y, 0);
+	const Unit2 pos(topLeftTile);
+	const Unit2 centerPos(Tile2(0,0));		// Calculate the center somehow 
+	drawBuilding(building->bitmap, building->size, topLeftTile, color);
 }
 
 
@@ -81,12 +86,19 @@ void BuildingOverlay::draw() {
 	float2 mouseCoords = float2(MOUSE_X, MOUSE_Y);
 	al_transform_coordinates(&TRANSFORM_WORLD_INVERTED, &mouseCoords.x, &mouseCoords.y);
 	
-	const int2 mouseTile = UNIT_TO_TILE(int2(mouseCoords.x, mouseCoords.y));
-	const int2 topLeftTile = mouseTile - centerTileOffset;
+	const Tile2 mouseTile(Unit2(mouseCoords.x, mouseCoords.y));
+	const Tile2 topLeftTile = mouseTile - centerOffset;
 
 	std::vector<ui::Image> items;
 	for (int i = 0; i < n; i++)
 		items.emplace_back(bitmap::square<64>(), 64, 64);
+
+	// Rotate in 4 parts
+	static uint8_t rotation = 0;
+	if (KEY_PRESSED(R))
+		rotation = (rotation + 1) & 0b11;
+	rotation = 0;
+		
 
 	int hit;
 	if (ui::drawBottomMenu(items, offset, CL_GREY, hit)) {
@@ -96,10 +108,10 @@ void BuildingOverlay::draw() {
 		return;
 	}
 	
-	drawBuildingGhost(buildTargetSpecs, topLeftTile);
+	drawBuildingGhost(buildTargetSpecs, topLeftTile, rotation);
 	
 	if (MOUSE_PRESSED(MOUSE_LEFT)) {
-		if (tryPlaceBuilding(bserg::world, topLeftTile, buildTarget)) {
+		if (tryPlaceBuilding(bserg::world, topLeftTile, rotation, buildTarget)) {
 			printf("I BUILD ANYWHERE\n");
 		}
 		else

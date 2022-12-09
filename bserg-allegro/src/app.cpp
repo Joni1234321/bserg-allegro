@@ -103,7 +103,12 @@ void App::input()
 void App::draw(float t) 
 {
 	//Timer timer("Draw");
-	camera.position = camera.position + (cameraDirection * t * 4 * camera.getInvScale());
+	camera.position = camera.position + (cameraDirection * t * 2 * camera.getInvScale());
+	if (MOUSE_SCROLL) {
+		float oldScale = camera.getScale();
+		float newScale = std::clamp(oldScale + MOUSE_SCROLL * t * .2f, 0.2f, 10.f);
+		camera.setScale(newScale);
+	}
 
 	al_identity_transform(&TRANSFORM_UI_SCALED);
 	al_scale_transform(&TRANSFORM_UI_SCALED, camera.getScale(), camera.getScale());
@@ -116,7 +121,6 @@ void App::draw(float t)
 	al_copy_transform(&TRANSFORM_WORLD_INVERTED, &TRANSFORM_WORLD);
 	al_invert_transform(&TRANSFORM_WORLD_INVERTED);
 	//al_draw_text(font, CL_WHITE, camera.position.x + 50, camera.position.y + 20, ALLEGRO_ALIGN_CENTER, game.currentScene().getName());
-
 
 	// Draw map
 	game.draw(t);

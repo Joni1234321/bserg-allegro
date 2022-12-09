@@ -68,7 +68,7 @@ void drawTestGui(Camera& camera, App &game, const Game& logic) {
         ImGui::End();
     }
 
-    camera.setScale(cameraTestScale);
+    cameraTestScale = camera.getScale();
     
     ImGui::Render();
     ImGui_ImplAllegro5_RenderDrawData(ImGui::GetDrawData());

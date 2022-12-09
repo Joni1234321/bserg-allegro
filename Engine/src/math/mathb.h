@@ -3,6 +3,7 @@
 #include <cmath>
 #include <immintrin.h>
 
+
 template <typename T>
 inline T lerp(T a, T b, float t) {
     //return b * t + a * (1 - t);

@@ -196,6 +196,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\bserg.cpp" />
+    <ClCompile Include="src\bserg\images.cpp" />
     <ClCompile Include="src\models\building\building.cpp" />
     <ClCompile Include="src\models\world\world.cpp" />
     <ClCompile Include="src\overlay\overlay.cpp" />
@@ -210,7 +211,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bserg.h" />
+    <ClInclude Include="src\bserg\images.h" />
     <ClInclude Include="src\models\building.h" />
+    <ClInclude Include="src\models\worker.h" />
     <ClInclude Include="src\overlay\overlay.h" />
     <ClInclude Include="src\ecs\old\batches.h" />
     <ClInclude Include="src\ecs\old\components.h" />
@@ -234,6 +237,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Tests\oopvsdod.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\bserg\smiley.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

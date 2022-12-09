@@ -51,6 +51,9 @@
     <ClCompile Include="src\bserg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\bserg\images.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ecs\old\unit.h">
@@ -95,11 +98,22 @@
     <ClInclude Include="src\bserg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\bserg\images.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\worker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Tests\oopvsdod.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\bserg\smiley.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

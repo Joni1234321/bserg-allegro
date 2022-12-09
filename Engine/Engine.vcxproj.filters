@@ -57,9 +57,6 @@
     <ClCompile Include="src\ui\ui-menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\extra\other.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\mathb-types.h">

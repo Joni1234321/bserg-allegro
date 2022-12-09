@@ -2,6 +2,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_image.h>
 
 #include "app.h"
 #include "testing/gui.h"
@@ -42,6 +43,7 @@ void init() {
     must_init(al_install_keyboard(), "keyboard");
     must_init(al_install_mouse(), "mouse");
     must_init(al_init_primitives_addon(), "primitives");
+    must_init(al_init_image_addon(), "images");
 
     // Font
     font = al_create_builtin_font();
@@ -114,7 +116,7 @@ void run() {
 
                 // Mouse handling
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN: {
-                MOUSE.pressed |= event.mouse.button;
+                MOUSE.pressed |= 1 << event.mouse.button;
                 MOUSE.x = event.mouse.x;
                 MOUSE.y = event.mouse.y;
                 app.onMouseDown();
@@ -140,8 +142,15 @@ void run() {
                 SCREEN_H = event.display.height;
                 resizeTestGui();
                 break;
-            }
 
+            case ALLEGRO_EVENT_MOUSE_AXES:
+                MOUSE_SCROLL = event.mouse.dz;
+                break;
+
+            default:
+                //printf("Event not implemented %d\n", event.type);
+                break;
+            }
         }
 
         // Draw
@@ -158,7 +167,7 @@ void run() {
             MOUSE.down = mouse.buttons;
             MOUSE_X = mouse.x;
             MOUSE_Y = mouse.y;
-
+            
             app.update(t);
         }
 
@@ -169,6 +178,7 @@ void run() {
         // Reset keys
         for (int i = 0; i < ALLEGRO_KEY_MAX; i++) UPDATE_INFO.key[i] &= KEY_SEEN;
         MOUSE.pressed = 0;
+        MOUSE_SCROLL = 0;
     }
 }
 int main() {

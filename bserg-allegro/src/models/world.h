@@ -1,7 +1,10 @@
 #pragma once
 
 #include "engine.h"
+
 #include "models/building.h"
+#include "models/worker.h"
+
 #include <vector>
  
 #define AREA_SIZE 256
@@ -27,9 +30,8 @@ private:
 class World {
 public:
 	World() : buildings(std::vector<Building>()), area(Area()) { }
-	Tile& getTile (int2 position);
+	Tile& getTile (Tile2 position);
 	std::vector<Building> buildings;
-
 private:
 	Area area;
 };
