@@ -1,12 +1,17 @@
 #pragma once
 #include "engine.h"
 
+#include "models/world.h"
 
-struct WorkerDrawData {
-	float2 tilePosition;
-};
+namespace bserg {
+	namespace worker {
+		size_t add(Tile2 position);
+		
+		void drawAll();
+		void draw(ALLEGRO_BITMAP* bitmap, Tile2 position, ALLEGRO_COLOR color = al_map_rgb_f(1, 1, 1));
+		
+		void tick(World&);
 
-struct WorkerTickData {
-	Tile2 pos;
-	Tile2 target;
-};
+		size_t size();
+	}
+}

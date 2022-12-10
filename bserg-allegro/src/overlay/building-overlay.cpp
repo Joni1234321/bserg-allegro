@@ -16,8 +16,8 @@
 #include "timer.h"
 
 bool anyBlockingTiles(World& world, Tile2 topLeftTile, Tile2 size) {
-	for (uint32_t y = 0; y < size.y; y++) {
-		for (uint32_t x = 0; x < size.x; x++) {
+	for (int32_t y = 0; y < size.y; y++) {
+		for (int32_t x = 0; x < size.x; x++) {
 			Tile& tile = world.getTile(Tile2(x + topLeftTile.x, y + topLeftTile.y));
 			if (tile.blocked)
 				return true;
@@ -27,8 +27,8 @@ bool anyBlockingTiles(World& world, Tile2 topLeftTile, Tile2 size) {
 }
 
 void blockTiles(World& world, Tile2 topLeftTile, Tile2 size) {
-	for (uint32_t y = 0; y < size.y; y++) {
-		for (uint32_t x = 0; x < size.x; x++) {
+	for (int32_t y = 0; y < size.y; y++) {
+		for (int32_t x = 0; x < size.x; x++) {
 			world.getTile(Tile2(x + topLeftTile.x, y + topLeftTile.y)).blocked = true;
 		}
 	}
@@ -72,7 +72,7 @@ void drawBuildingGhost (const BuildingSpecification* building, Tile2 topLeftTile
 		color = al_map_rgba_f(1.f, .1f, .1f, .6f);
 	
 	// Draw ghost
-	const Unit2 pos(topLeftTile);
+	const Unit2 position(topLeftTile);
 	const Unit2 centerPos(Tile2(0,0));		// Calculate the center somehow 
 	drawBuilding(building->bitmap, building->size, topLeftTile, color);
 }

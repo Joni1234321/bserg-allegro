@@ -8,7 +8,7 @@ public:
 	virtual void draw();
 };
 
-Overlay* getCurrentOverlay();
+Overlay* getCurrentOverlay();	
 
 
 // Iterator

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "overlay.h"
+#include "overlay/overlay.h"
 #include "models/world.h"
 
 class BuildingOverlay : public Overlay {

@@ -6,6 +6,9 @@
 #include "ecs.h"
 #include "ecs/old/helper.h"
 
+#include "models/worker.h"
+
+#include "overlay/battle-overlay.h"
 #include "overlay/building-overlay.h"
 
 #include "timer.h"
@@ -54,7 +57,7 @@ inline void App::spawnUnit(uint8_t team, uint32_t amount) {
 void App::input()
 {
 	if (KEY_PRESSED(ESCAPE)) running = false;
-	if (KEY_PRESSED(P)) paused = !paused;
+	if (KEY_PRESSED(SPACE)) paused = !paused;
 
 	// LETTERS
 	if (KEY_DOWN(B))
@@ -73,8 +76,8 @@ void App::input()
 		setOverlay<BuildingOverlay>();
 		buildingOverlaySelect((BuildingType) (lastSelectedBuildingType++ % (int)BuildingType::COUNT));
 	}
-	if (KEY_DOWN(4)) spawnUnit(1, 50);
-	if (KEY_DOWN(5)) setOverlay<Overlay>();
+	if (KEY_PRESSED(4)) bserg::worker::add(Tile2(rand() % 64, rand() % 64));
+	if (KEY_PRESSED(5)) setOverlay<Overlay>();
 	if (KEY_DOWN(6)) spawnUnit(1, 1000);
 	if (KEY_DOWN(7)) {
 		spawnUnit(0, 10000);
@@ -95,7 +98,7 @@ void App::input()
 	
 	// Scene
 	if (KEY_PRESSED(TAB) )
-		game.changeScene();
+		setOverlay<BattleOverlay>();
 
 	// Move camera
 	cameraDirection = float2(KEY_DOWN(D) - KEY_DOWN(A),KEY_DOWN(W) - KEY_DOWN(S));
@@ -106,7 +109,7 @@ void App::draw(float t)
 	camera.position = camera.position + (cameraDirection * t * 2 * camera.getInvScale());
 	if (MOUSE_SCROLL) {
 		float oldScale = camera.getScale();
-		float newScale = std::clamp(oldScale + MOUSE_SCROLL * t * .2f, 0.2f, 10.f);
+		float newScale = std::clamp(oldScale - MOUSE_SCROLL * t * .2f, 0.2f, 10.f);
 		camera.setScale(newScale);
 	}
 
@@ -141,11 +144,8 @@ void App::tick()
 	ticks++;
 	
 	// Do map ticks
-#if DESIGN == OOP
 	game.tick();
-#else
 	ecs::Tick();
-#endif
 
 }
 

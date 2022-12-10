@@ -183,6 +183,7 @@ void run() {
 }
 int main() {
 
+    srand(time(NULL));
     init();
     createTestGui(display);
     

@@ -19,15 +19,15 @@ void loadSpecs() {
 Unit2 drawBuilding(ALLEGRO_BITMAP* bitmap, Tile2 size, Tile2 topLeftTile, ALLEGRO_COLOR color) {
 
 	// Calculate stuff
-	Unit2 pos(topLeftTile);
+	Unit2 position(topLeftTile);
 	Unit2 unitSize(size);
 
 	int2 sourceSize = int2(al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap));
 
 	// Draw building
-    al_draw_tinted_scaled_bitmap(bitmap, color, 0, 0, sourceSize.x, sourceSize.y, pos.x, pos.y, unitSize.x, unitSize.y, 0);
+    al_draw_tinted_scaled_bitmap(bitmap, color, 0, 0, sourceSize.x, sourceSize.y, position.x, position.y, unitSize.x, unitSize.y, 0);
 
-	return pos;
+	return position;
 }
 
 Unit2 drawBuilding(const Building &building) {

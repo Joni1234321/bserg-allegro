@@ -45,28 +45,31 @@ namespace mathb {
 		struct Tile2;
 
 		struct Unit2 {
-			uint32_t x, y;
-			Unit2(uint32_t x, uint32_t y) : x(x), y(y) {}
-			Unit2(uint32_t v) : x(v), y(v) {}
+			int32_t x, y;
+			Unit2(int32_t x, int32_t y) : x(x), y(y) {}
+			Unit2(int32_t v) : x(v), y(v) {}
 			Unit2() : x(0), y(0) {};
 
 			Unit2 operator + (const Unit2& obj) const { return Unit2(x + obj.x, y + obj.y); }
 			Unit2 operator - (const Unit2& obj) const { return Unit2(x - obj.x, y - obj.y); }
-			Unit2 operator * (const uint32_t obj) const { return Unit2(x * obj, y * obj); }
+			Unit2 operator * (const int32_t obj) const { return Unit2(x * obj, y * obj); }
+			bool operator == (const Unit2& other) { return x == other.x && y == other.y; }
+
 			
 			explicit Unit2(const Tile2& tile);
 		};
 		
 		struct Tile2 {
-			uint32_t x, y;
-			Tile2(uint32_t x, uint32_t y) : x(x), y(y) {}
-			Tile2(uint32_t v) : x(v), y(v) {}
+			int32_t x, y;
+			Tile2(int32_t x, int32_t y) : x(x), y(y) {}
+			Tile2(int32_t v) : x(v), y(v) {}
 			Tile2() : x(0), y(0) {};
 
 
 			Tile2 operator + (const Tile2& obj) const { return Tile2(x + obj.x, y + obj.y); }
 			Tile2 operator - (const Tile2& obj) const { return Tile2(x - obj.x, y - obj.y); }
-			Tile2 operator * (const uint32_t obj) const { return Tile2(x * obj, y * obj); }
+			Tile2 operator * (const int32_t obj) const { return Tile2(x * obj, y * obj); }
+			bool operator == (const Tile2& other) { return x == other.x && y == other.y; }
 
 			explicit Tile2(const Unit2& unit);
 		};	

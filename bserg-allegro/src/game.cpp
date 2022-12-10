@@ -9,10 +9,12 @@
 #include "globals.h"
 
 #include "ecs.h"
-#include "models\world.h"
+#include "models/world.h"
 #include "models/building.h"
+#include "models/worker.h"
 
 #include "overlay/overlay.h"
+#include "overlay/battle-overlay.h"
 #include "overlay/building-overlay.h"
 
 #include "bserg\images.h"
@@ -37,6 +39,7 @@ Game::Game(const ALLEGRO_FONT* font, const Camera& camera) :
 	// Create UI
 	addOverlay(new Overlay());
 	addOverlay<BuildingOverlay>(new BuildingOverlay());
+	addOverlay<BattleOverlay>(new BattleOverlay());
 	setOverlay<Overlay>();
 
 	// Create teams
@@ -61,6 +64,8 @@ Game::~Game()
 
 void Game::tick()
 {
+#if DESIGN == OOP
+
 	// Update position
 	for (uint8_t t = 0; t < n_teams; t++) {
 		for (uint32_t i = 0; i < units[t].size(); i++) {
@@ -68,6 +73,8 @@ void Game::tick()
 				units[t][i].goal = float2(rand() % 1000, rand() % 1000);
 		}
 	}
+#endif
+	bserg::worker::tick(world);
 }
 
 void Game::draw(float t)
@@ -110,7 +117,7 @@ void Game::draw(float t)
 
 	for (int i = 0; i < nBuildings; i++) {
 		const Building& building = bserg::world.buildings[i];
-		Unit2 pos = drawBuilding(building);
+		Unit2 position = drawBuilding(building);
 	
 		// Already detected
 		if (hoverBuilding)
@@ -121,24 +128,26 @@ void Game::draw(float t)
 		Tile2 corner = building.topLeftTile + size;
 		if (collision::insideRect(mouseTile.x, mouseTile.y, building.topLeftTile.x, building.topLeftTile.y, corner.x - 1, corner.y - 1)) {
 			hoverBuilding = &building;
-			hoverCorner1 = pos;
+			hoverCorner1 = position;
 			hoverCorner2 = Unit2(corner);
 
 			// Set building
 			if (MOUSE_PRESSED(MOUSE_LEFT)) {
 				printf("selected\n");
 				selectedBuilding = &building;
-				selectedCorner1 = pos;
+				selectedCorner1 = position;
 				selectedCorner2 = Unit2(corner);
 			}
 		}
-	
 	}
+
+	bserg::worker::drawAll();
 
 	// Draw outer rect around hovering building
 	if (hoverBuilding)
 		al_draw_rectangle(hoverCorner1.x, hoverCorner1.y, hoverCorner2.x, hoverCorner2.y, CL_ORANGE, 2);
 
+	// Draw thicker outline on selected building
 	if (selectedBuilding) {
 		al_draw_rectangle(selectedCorner1.x, selectedCorner1.y, selectedCorner2.x, selectedCorner2.y, CL_ORANGE, 4);
 	}
@@ -147,10 +156,12 @@ void Game::draw(float t)
 	// Draw selected tile
 	{
 		const Unit2 snappedMouse(mouseTile);
-		al_draw_rectangle(snappedMouse.x, snappedMouse.y, snappedMouse.x + 64, snappedMouse.y + 64, CL_GREY, 4);
+		al_draw_rectangle(snappedMouse.x, snappedMouse.y, snappedMouse.x + UNITS_PER_TILE, snappedMouse.y + UNITS_PER_TILE, CL_GREY, 4);
 	}
+	
 	getCurrentOverlay()->draw();
 
+	
 }
 
 void Game::spawnUnit(uint8_t team, uint32_t amount)

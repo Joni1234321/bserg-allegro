@@ -1,5 +1,6 @@
 #pragma once
 
+#define CL_BLACK al_map_rgb(20, 20, 20)
 #define CL_WHITE al_map_rgb(235, 235, 235)
 #define CL_LIGHT_GREY al_map_rgb(224, 224, 224)
 #define CL_GREY al_map_rgb(192, 192, 192)

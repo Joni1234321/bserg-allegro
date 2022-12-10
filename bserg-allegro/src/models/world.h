@@ -3,7 +3,6 @@
 #include "engine.h"
 
 #include "models/building.h"
-#include "models/worker.h"
 
 #include <vector>
  
