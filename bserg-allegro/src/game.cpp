@@ -156,7 +156,7 @@ void Game::draw(float t)
 	// Draw selected tile
 	{
 		const Unit2 snappedMouse(mouseTile);
-		al_draw_rectangle(snappedMouse.x, snappedMouse.y, snappedMouse.x + UNITS_PER_TILE, snappedMouse.y + UNITS_PER_TILE, CL_GREY, 4);
+		al_draw_rectangle(snappedMouse.x, snappedMouse.y, snappedMouse.x + UNITS_PER_TILE, snappedMouse.y + UNITS_PER_TILE, CL_GREY, 2);
 	}
 	
 	getCurrentOverlay()->draw();

@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\ecs\collection.cpp" />
     <ClCompile Include="src\ecs\ecs.cpp" />
     <ClCompile Include="src\extra\bitmap.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -213,6 +214,11 @@
     <ClCompile Include="src\ui\ui-menu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ecs\collection.h" />
+    <ClInclude Include="src\ecs\ecs-add.h" />
+    <ClInclude Include="src\ecs\archetype.h" />
+    <ClInclude Include="src\ecs\shared.h" />
+    <ClInclude Include="src\ecs\system.h" />
     <ClInclude Include="src\globals.h" />
     <ClInclude Include="src\collision.h" />
     <ClInclude Include="src\ecs.h" />

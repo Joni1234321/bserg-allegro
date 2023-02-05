@@ -13,7 +13,7 @@ public:
 	BattleOverlay();
 	void draw();
 private:
-	std::vector<Objective> objectives;
-
+	Objective* objectives;
+	uint32_t* neighbors;
 };
 

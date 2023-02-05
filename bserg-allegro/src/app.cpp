@@ -78,7 +78,8 @@ void App::input()
 	}
 	if (KEY_PRESSED(4)) bserg::worker::add(Tile2(rand() % 64, rand() % 64));
 	if (KEY_PRESSED(5)) setOverlay<Overlay>();
-	if (KEY_DOWN(6)) spawnUnit(1, 1000);
+	if (KEY_PRESSED(6)) 		setOverlay<BattleOverlay>();
+
 	if (KEY_DOWN(7)) {
 		spawnUnit(0, 10000);
 		spawnUnit(1, 10000);
