@@ -16,4 +16,5 @@ Engine folder contains files that are not exclusively for the game itself
 bserg-allegro folder contains files that are unique for the game itself
 
 # How to do anything in the game
-Well the game isn't fun at all, but you can add more "workers" to the game by pressing any of the number keys (not on keypad), and the you can remove the objects again in the UI.
+Well the game isn't fun at all, but you can add more "workers" to the game by pressing any of the number keys (not on keypad), and the you can remove the objects again in the UI.  
+Pressing tab opens an overlay, you can also place buildings if you open the menu, or click the ui in the bottom of the screen.
